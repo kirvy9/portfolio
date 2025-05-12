@@ -1,0 +1,110 @@
+pipeline {
+    agent any
+
+    environment {
+        REPO_URL_BACKEND = 'https://github.com/gothinkster/node-express-realworld-example-app.git'
+        REPO_URL_FRONTEND = 'https://github.com/gothinkster/react-redux-realworld-example-app.git'
+        REPO_URL_TEST = 'https://kdt-gitlab.elice.io/qa_track/class_01/qa-project2/team02/team02.git'
+        PATH = "${env.HOME}/.local/bin:${env.PATH}"
+    }
+
+    stages {
+        stage('Clone Backend Repository') {
+            steps {
+                git credentialsId: 'seondong', url: "${REPO_URL_BACKEND}", branch: 'main'
+            }
+        }
+
+        stage('Clone Frontend Repository') {
+            steps {
+                git credentialsId: 'seondong', url: "${REPO_URL_FRONTEND}", branch: 'main'
+            }
+        }
+
+        stage('Clone Test Repository') {
+            steps {
+                git credentialsId: 'seondong', url: "${REPO_URL_TEST}", branch: 'dev'
+            }
+        }
+
+        stage('Set Up Backend Environment') {
+            steps {
+                sh '''
+                    cd node-express-realworld-example-app
+                    npm install
+
+                    # .env 파일 생성 및 설정
+                    echo "DATABASE_URL=postgresql://seondong:tjsehd85@localhost:5432/realworld?schema=public" > .env
+                    echo "JWT_SECRET=random-secret-key-for-testing" >> .env
+                    echo "NODE_ENV=development" >> .env
+
+                    npx prisma generate
+                    npx prisma migrate deploy
+                '''
+            }
+        }
+
+        stage('Set Up Frontend Environment') {
+            steps {
+                sh '''
+                    cd react-redux-realworld-example-app
+                    npm install
+
+                    # 백엔드 API 주소를 로컬로 변경
+                    sed -i 's|https://conduit.productionready.io/api|http://localhost:3000/api|g' src/agent.js
+                '''
+            }
+        }
+
+        stage('Start Backend Server') {
+            steps {
+                sh '''
+                    cd node-express-realworld-example-app
+                    nohup npx nx serve api &
+
+                    # 서버가 뜰 시간 확보
+                    sleep 10
+                '''
+            }
+        }
+
+        stage('Start Frontend Server') {
+            steps {
+                sh '''
+                    cd react-redux-realworld-example-app
+                    nohup npm start &
+
+                    # 서버가 뜰 시간 확보
+                    sleep 10
+                '''
+            }
+        }
+
+        stage('Run QA Tests') {
+            steps {
+                sh '''
+                    cd team02
+                    pip install -r requirements.txt
+                    pip install pytest pytest-html
+
+                    pytest --junitxml=test-results.xml --html=report.html
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            // JUnit 결과 리포트
+            junit 'team02/test-results.xml'
+
+            // HTML 리포트도 Jenkins에 표시
+            publishHTML(target: [
+                reportName: 'Test Report',
+                reportDir: 'team02',
+                reportFiles: 'report.html',
+                alwaysLinkToLastBuild: true
+            ])
+        }
+    }
+}
