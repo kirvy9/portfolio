@@ -1,0 +1,4 @@
+faker ver 37.0.2
+pytest ver 8.3.5
+selenium ver 4.29.0
+chrome ver 134

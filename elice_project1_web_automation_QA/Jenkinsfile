@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                sh '''
+                # 기존 디렉토리 삭제 (있다면)
+                if [ -d "team2" ]; then
+                    echo "🧹 기존 team2 디렉토리 삭제"
+                    rm -rf team2
+                fi
+                # Git 저장소 클론
+                git clone 'git@kdt-gitlab.elice.io:qa_track/class_01/qa-project1/team02/team2.git'
+                '''
+            }
+        }
+
+        stage('Activate Virtual Environment') {
+            steps {
+                sh 'bash -c "source venv/bin/activate"'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'bash -c "source venv/bin/activate && pytest -s -v --html=test-reports/report.html --self-contained-html"'
+            }
+        }
+    }
+
+    post {
+        always {
+            sh '''
+            echo '✅ Build finished.'
+            '''
+        }
+    }
+}

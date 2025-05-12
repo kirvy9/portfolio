@@ -1,0 +1,698 @@
+Started by user 심태웅
+Replayed #83
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/team2
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/team2/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url git@kdt-gitlab.elice.io:qa_track/class_01/qa-project1/team02/team2.git # timeout=10
+Fetching upstream changes from git@kdt-gitlab.elice.io:qa_track/class_01/qa-project1/team02/team2.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- git@kdt-gitlab.elice.io:qa_track/class_01/qa-project1/team02/team2.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/develop^{commit} # timeout=10
+Checking out Revision 79c1747ac600e83be79f02264481527c310985a8 (refs/remotes/origin/develop)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 79c1747ac600e83be79f02264481527c310985a8 # timeout=10
+Commit message: "Update test_TC_B_008.py"
+ > git rev-list --no-walk 79c1747ac600e83be79f02264481527c310985a8 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Clone Repository)
+[Pipeline] sh
++ [ -d team2 ]
++ echo 🧹 기존 team2 디렉토리 삭제
+🧹 기존 team2 디렉토리 삭제
++ rm -rf team2
++ git clone git@kdt-gitlab.elice.io:qa_track/class_01/qa-project1/team02/team2.git
+Cloning into 'team2'...
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Activate Virtual Environment)
+[Pipeline] sh
++ bash -c source venv/bin/activate
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Run Tests)
+[Pipeline] sh
++ bash -c source venv/bin/activate && pytest -s -v --html=test-reports/pytest-html-report.html --self-contained-html
+============================= test session starts ==============================
+platform linux -- Python 3.11.2, pytest-8.3.5, pluggy-1.5.0 -- /var/jenkins_home/workspace/team2/venv/bin/python3
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.2', 'Platform': 'Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.36', 'Packages': {'pytest': '8.3.5', 'pluggy': '1.5.0'}, 'Plugins': {'metadata': '3.1.1', 'Faker': '37.1.0', 'html-reporter': '0.2.9', 'html': '4.1.1'}, 'CI': 'true', 'BUILD_NUMBER': '84', 'BUILD_ID': '84', 'BUILD_URL': 'http://localhost:9000/job/team2/84/', 'NODE_NAME': 'built-in', 'JOB_NAME': 'team2', 'BUILD_TAG': 'jenkins-team2-84', 'EXECUTOR_NUMBER': '1', 'JENKINS_URL': 'http://localhost:9000/', 'JAVA_HOME': '/opt/java/openjdk', 'WORKSPACE': '/var/jenkins_home/workspace/team2', 'GIT_COMMIT': '79c1747ac600e83be79f02264481527c310985a8', 'GIT_URL': 'git@kdt-gitlab.elice.io:qa_track/class_01/qa-project1/team02/team2.git', 'GIT_BRANCH': 'origin/develop'}
+rootdir: /var/jenkins_home/workspace/team2
+configfile: pytest.ini
+plugins: metadata-3.1.1, Faker-37.1.0, html-reporter-0.2.9, html-4.1.1
+collecting ... collected 59 items
+
+tests/TC_A/test_TC_A_001.py::TestCase_A::test_Case_A_01 PASSED
+tests/TC_A/test_TC_A_002.py::TestCase_A::test_Case_A_02 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_A_002.py:14 로그인 비밀번호 찾기를 시작합니다.
+INFO     root:test_TC_A_002.py:23 '비밀번호를 잊으셨나요?' 버튼을 클릭합니다.
+INFO     root:test_TC_A_002.py:27 이메일 입력 / '계속' 버튼을 클릭합니다.
+INFO     root:test_TC_A_002.py:35 로그인 비밀번호 찾기를 종료합니다.
+PASSED
+tests/TC_B/test_TC_B_001.py::TestCase_B::test_Case_B_01 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_B_001.py:14 [테스트 시작] 회원가입 프로세스를 시작합니다.
+INFO     root:test_TC_B_001.py:21 회원가입 페이지 열기 완료
+INFO     root:test_TC_B_001.py:26 회원가입 폼으로 이동 완료
+PASSED
+tests/TC_B/test_TC_B_002.py::TestCase_B::test_Case_B_02 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_B_002.py:14 [테스트 시작] 회원가입 프로세스를 시작합니다.
+INFO     root:test_TC_B_002.py:20 회원가입 페이지 열기 완료
+INFO     root:test_TC_B_002.py:24 회원가입 폼으로 이동 완료
+INFO     root:test_TC_B_002.py:55 이메일 : robert14@example.net, 비밀번호 fLa)TN#6
+INFO     root:signupPage.py:52 사용자 이메일 : robert14@example.net , 비밀번호 : fLa)TN#6
+INFO     root:test_TC_B_002.py:60 이메일 및 비밀번호 입력 완료
+PASSED
+tests/TC_B/test_TC_B_003.py::TestCase_B::test_Case_B_03 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_B_003.py:13 [테스트 시작] 회원가입 프로세스를 시작합니다.
+INFO     root:test_TC_B_003.py:19 회원가입 페이지 열기 완료
+INFO     root:test_TC_B_003.py:23 회원가입 폼으로 이동 완료
+INFO     root:test_TC_B_003.py:26 이메일 : clarkgary@example.com, 비밀번호 UbW5$p$9
+INFO     root:signupPage.py:52 사용자 이메일 : clarkgary@example.com , 비밀번호 : UbW5$p$9
+INFO     root:test_TC_B_003.py:31 이메일 및 비밀번호 입력 완료
+INFO     root:test_TC_B_003.py:34 Accept 버튼 클릭 완료
+PASSED
+tests/TC_B/test_TC_B_004.py::TestCase_B::test_Case_B_04 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_B_004.py:18 [테스트 시작] 회원가입 프로세스를 시작합니다.
+INFO     root:test_TC_B_004.py:25 회원가입 페이지 열기 완료
+INFO     root:test_TC_B_004.py:29 회원가입 폼으로 이동 완료
+INFO     root:test_TC_B_004.py:32 이메일 : tiffanyjordan@example.net, 비밀번호 !l!SO%7H
+INFO     root:signupPage.py:52 사용자 이메일 : tiffanyjordan@example.net , 비밀번호 : !l!SO%7H
+INFO     root:test_TC_B_004.py:37 이메일 및 비밀번호 입력 완료
+INFO     root:test_TC_B_004.py:40 Accept 버튼 클릭 완료
+INFO     root:test_TC_B_004.py:47 내 이름 : Christina Marshall
+INFO     root:test_TC_B_004.py:50 이름 입력 완료
+PASSED
+tests/TC_B/test_TC_B_005.py::TestCase_B::test_Case_B_05 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_B_005.py:19 [테스트 시작] 회원가입 프로세스를 시작합니다.
+INFO     root:test_TC_B_005.py:26 회원가입 페이지 열기 완료
+INFO     root:test_TC_B_005.py:30 회원가입 폼으로 이동 완료
+INFO     root:test_TC_B_005.py:33 이메일 : griffithjustin@example.org, 비밀번호 WKV(MxX0
+INFO     root:signupPage.py:52 사용자 이메일 : griffithjustin@example.org , 비밀번호 : WKV(MxX0
+INFO     root:test_TC_B_005.py:38 이메일 및 비밀번호 입력 완료
+INFO     root:test_TC_B_005.py:41 Accept 버튼 클릭 완료
+INFO     root:test_TC_B_005.py:48 내 이름 : Stephanie Hunter
+INFO     root:test_TC_B_005.py:51 이름 입력 완료
+INFO     root:test_TC_B_005.py:56 내 팀 : 개발 2팀
+INFO     root:test_TC_B_005.py:59 팀 선택 완료
+PASSED
+tests/TC_B/test_TC_B_006.py::TestCase_B::test_Case_B_06 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_B_006.py:18 [테스트 시작] 회원가입 프로세스를 시작합니다.
+INFO     root:test_TC_B_006.py:25 회원가입 페이지 열기 완료
+INFO     root:test_TC_B_006.py:29 회원가입 폼으로 이동 완료
+INFO     root:test_TC_B_006.py:32 이메일 : lewisstephanie@example.net, 비밀번호 wTO^N2ic
+INFO     root:signupPage.py:52 사용자 이메일 : lewisstephanie@example.net , 비밀번호 : wTO^N2ic
+INFO     root:test_TC_B_006.py:37 이메일 및 비밀번호 입력 완료
+INFO     root:test_TC_B_006.py:40 Accept 버튼 클릭 완료
+INFO     root:test_TC_B_006.py:47 내 이름 : Annette Nichols
+INFO     root:test_TC_B_006.py:50 이름 입력 완료
+INFO     root:test_TC_B_006.py:55 내 팀 : 개발 2팀
+INFO     root:test_TC_B_006.py:58 팀 선택 완료
+현재 슬라이더 값: 0.0
+이동 거리: 275px
+✅ 업데이트된 슬라이더 값: 3.4
+INFO     root:test_TC_B_006.py:66 단맛 설정 : 3.3
+현재 슬라이더 값: 0.0
+이동 거리: 266px
+✅ 업데이트된 슬라이더 값: 3.29
+INFO     root:test_TC_B_006.py:72 짠맛 설정 : 3.2
+현재 슬라이더 값: 0.0
+이동 거리: 116px
+✅ 업데이트된 슬라이더 값: 1.5
+INFO     root:test_TC_B_006.py:78 매운맛 설정 : 1.4
+PASSED
+tests/TC_B/test_TC_B_007.py::TestCase_B::test_Case_B_07 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_B_007.py:18 [테스트 시작] 회원가입 프로세스를 시작합니다.
+INFO     root:test_TC_B_007.py:25 회원가입 페이지 열기 완료
+INFO     root:test_TC_B_007.py:29 회원가입 폼으로 이동 완료
+INFO     root:test_TC_B_007.py:32 이메일 : michaelhenderson@example.net, 비밀번호 z$U!sg7l
+INFO     root:signupPage.py:52 사용자 이메일 : michaelhenderson@example.net , 비밀번호 : z$U!sg7l
+INFO     root:test_TC_B_007.py:37 이메일 및 비밀번호 입력 완료
+INFO     root:test_TC_B_007.py:40 Accept 버튼 클릭 완료
+INFO     root:test_TC_B_007.py:47 내 이름 : Jessica Snow
+INFO     root:test_TC_B_007.py:50 이름 입력 완료
+INFO     root:test_TC_B_007.py:55 내 팀 : 개발 2팀
+INFO     root:test_TC_B_007.py:58 팀 선택 완료
+현재 슬라이더 값: 0.0
+이동 거리: 83px
+✅ 업데이트된 슬라이더 값: 1.1
+INFO     root:test_TC_B_007.py:66 단맛 설정 : 1.0
+현재 슬라이더 값: 0.0
+이동 거리: 233px
+✅ 업데이트된 슬라이더 값: 2.9
+INFO     root:test_TC_B_007.py:72 짠맛 설정 : 2.8
+현재 슬라이더 값: 0.0
+이동 거리: 366px
+✅ 업데이트된 슬라이더 값: 4.49
+INFO     root:test_TC_B_007.py:78 매운맛 설정 : 4.4
+INFO     root:test_TC_B_007.py:90 좋아요/싫어요 입력 완료
+INFO     root:test_TC_B_007.py:97 회원가입 '제출하기' 버튼 클릭
+PASSED
+tests/TC_B/test_TC_B_008.py::TestCase_B::test_Case_B_08 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_B_008.py:18 [테스트 시작] 회원가입 프로세스를 시작합니다.
+INFO     root:test_TC_B_008.py:25 회원가입 페이지 열기 완료
+INFO     root:test_TC_B_008.py:29 회원가입 폼으로 이동 완료
+INFO     root:test_TC_B_008.py:32 이메일 : mallory70@example.com, 비밀번호 !E94lmBk
+INFO     root:signupPage.py:52 사용자 이메일 : mallory70@example.com , 비밀번호 : !E94lmBk
+INFO     root:test_TC_B_008.py:37 이메일 및 비밀번호 입력 완료
+INFO     root:test_TC_B_008.py:40 Accept 버튼 클릭 완료
+INFO     root:test_TC_B_008.py:47 내 이름 : Kevin Miller
+INFO     root:test_TC_B_008.py:50 이름 입력 완료
+INFO     root:test_TC_B_008.py:55 내 팀 : 디자인 1팀
+INFO     root:test_TC_B_008.py:58 팀 선택 완료
+현재 슬라이더 값: 0.0
+이동 거리: 358px
+✅ 업데이트된 슬라이더 값: 4.4
+INFO     root:test_TC_B_008.py:66 단맛 설정 : 4.3
+현재 슬라이더 값: 0.0
+이동 거리: 191px
+✅ 업데이트된 슬라이더 값: 2.4
+INFO     root:test_TC_B_008.py:72 짠맛 설정 : 2.3
+현재 슬라이더 값: 0.0
+이동 거리: 358px
+✅ 업데이트된 슬라이더 값: 4.4
+INFO     root:test_TC_B_008.py:78 매운맛 설정 : 4.3
+INFO     root:test_TC_B_008.py:90 잘못된 좋아요/싫어요 입력 완료 (10자 미만)
+INFO     root:test_TC_B_008.py:96 회원가입 '제출하기' 버튼 클릭
+WARNING  root:test_TC_B_008.py:105 ⚠️ 좋아요/싫어요 입력이 10자 미만입니다. 재입력합니다.
+INFO     root:test_TC_B_008.py:113 올바른 좋아요/싫어요 입력 완료 (100자 이내)
+INFO     root:test_TC_B_008.py:120 회원가입 '제출하기' 버튼 클릭
+INFO     root:test_TC_B_008.py:127 [테스트 종료] 회원가입 프로세스 종료되었습니다.
+PASSED
+tests/TC_C/test_TC_C_001.py::TestCaseC::test_TC_C_001 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_C_001.py:20 
+[Test_C_001. Start!]
+INFO     root:test_TC_C_001.py:29 ✅ '👤혼자먹기' 버튼 정상 출력
+INFO     root:test_TC_C_001.py:33 🔍 혼자먹기 페이지 이동중...
+INFO     root:test_TC_C_001.py:38 ✅ '👤혼자먹기' 페이지 정상 이동 완료.
+INFO     root:test_TC_C_001.py:43 ✅ 음식 카테고리 버튼 정상 출력
+INFO     root:solo_eat.py:50 🔍 카테고리 선택중...
+INFO     root:solo_eat.py:71 ✅ 카테고리 : '아시안' 선택
+PASSED
+tests/TC_C/test_TC_C_002.py::TestCaseC::test_TC_C_002 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_C_002.py:18 
+[Test_C_002. Start!]
+INFO     root:solo_eat.py:38 🔍 혼자먹기 페이지 이동중...
+INFO     root:test_TC_C_002.py:26 ✅ '👤혼자먹기' 페이지 정상 이동 완료.
+INFO     root:test_TC_C_002.py:31 🙌먹는 인원 : 1 명
+INFO     root:test_TC_C_002.py:32 ✅ 유저 프로필 정상 출력
+INFO     root:test_TC_C_002.py:37 
+ 이름 : team2
+ 소속 팀 : 개발 2팀
+PASSED
+tests/TC_C/test_TC_C_003.py::TestCaseC::test_TC_C_003 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_C_003.py:20 
+[Test_C_003. Start!]
+INFO     root:solo_eat.py:38 🔍 혼자먹기 페이지 이동중...
+INFO     root:test_TC_C_003.py:28 ✅ '👤혼자먹기' 페이지 정상 이동 완료.
+INFO     root:solo_eat.py:50 🔍 카테고리 선택중...
+INFO     root:solo_eat.py:71 ✅ 카테고리 : '중식' 선택
+INFO     root:test_TC_C_003.py:34 ✅ 카테고리 설정 완료
+INFO     root:solo_eat.py:81 선택완료 클릭
+INFO     root:test_TC_C_003.py:39 ✅ 선택완료
+INFO     root:test_TC_C_003.py:44 ✅ 정상 출력
+INFO     root:test_TC_C_003.py:45 ✅ 추천 메뉴 : 오향장육
+INFO     root:test_TC_C_003.py:49 ✅ 메뉴 사진 정상 출력
+INFO     root:test_TC_C_003.py:56 ✅ 🍽️ 오향장육에 해당하는 맛집 리스트 : 15개의 맛집 발견
+PASSED
+tests/TC_D/test_TC_D_001.py::TestCaseD::test_TC_D_001 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_D_001.py:18 
+[Test_D_001. Start!]
+INFO     root:test_TC_D_001.py:26 ✅ '👥같이먹기' 버튼 정상 출력
+INFO     root:test_TC_D_001.py:30 🔍 같이먹기 페이지 이동중...
+INFO     root:test_TC_D_001.py:32 ✅ '👥같이먹기' 페이지로 정상 이동 완료.
+INFO     root:test_TC_D_001.py:38 ✅ 카테고리 버튼 정상 출력
+INFO     root:together_eat.py:56 🔍 카테고리 선택중...
+INFO     root:together_eat.py:73 ✅ 카테고리 : '기타' 선택
+PASSED
+tests/TC_D/test_TC_D_002.py::TestCaseD::test_TC_D_002 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_D_002.py:19 
+[Test_D_002. Start!]
+INFO     root:together_eat.py:39 🔍 같이먹기 페이지 이동중...
+INFO     root:test_TC_D_002.py:27 ✅ '👥같이먹기' 페이지로 정상 이동 완료.
+INFO     root:together_eat.py:56 🔍 카테고리 선택중...
+INFO     root:together_eat.py:73 ✅ 카테고리 : '일식' 선택
+INFO     root:test_TC_D_002.py:33 ✅ 카테고리 설정 완료
+INFO     root:together_eat.py:110 ✅ 31명 선택
+INFO     root:test_TC_D_002.py:39 ✅ 인원 선택 완료
+INFO     root:together_eat.py:175 ✅ 26명 선택 해체
+INFO     root:test_TC_D_002.py:47 ✅ 최종 선택 인원 5 명
+PASSED
+tests/TC_D/test_TC_D_003.py::TestCaseD::test_TC_D_003 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_D_003.py:19 
+[Test_D_003. Start!]
+INFO     root:together_eat.py:39 🔍 같이먹기 페이지 이동중...
+INFO     root:test_TC_D_003.py:27 ✅ '👥같이먹기' 페이지로 정상 이동 완료.
+INFO     root:together_eat.py:56 🔍 카테고리 선택중...
+INFO     root:together_eat.py:73 ✅ 카테고리 : '아시안' 선택
+INFO     root:test_TC_D_003.py:33 ✅ 카테고리 설정 완료
+INFO     root:together_eat.py:110 ✅ 18명 선택
+INFO     root:test_TC_D_003.py:41 ✅ 인원 선택 완료
+INFO     root:together_eat.py:181 선택완료 클릭
+INFO     root:test_TC_D_003.py:47 ✅ 선택 완료 및 페이지 이동
+INFO     root:test_TC_D_003.py:51 ✅ 정상 출력
+INFO     root:test_TC_D_003.py:52 ✅ 추천 메뉴 : 로띠차나이
+INFO     root:test_TC_D_003.py:56 ✅ 메뉴 사진 정상 출력
+INFO     root:test_TC_D_003.py:63 ✅ 🍽️ 로띠차나이에 해당하는 맛집 리스트 : 0개의 맛집 발견
+PASSED
+tests/TC_E/test_TC_E_001.py::TestCaseE::test_TC_E_001 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_E_001.py:18 
+[Test_E_001. Start!]
+INFO     root:test_TC_E_001.py:26 ✅ '📅회식하기' 버튼 정상 출력
+INFO     root:test_TC_E_001.py:31 🔍 회식하기 페이지 이동중...
+INFO     root:test_TC_E_001.py:34 ✅ '📅회식하기' 페이지 정상 이동 완료.
+INFO     root:test_TC_E_001.py:40 ✅ 카테고리 버튼 정상 출력
+PASSED
+tests/TC_E/test_TC_E_002.py::TestCaseE::test_TC_E_002 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_E_002.py:20 
+[Test_E_002. Start!]
+INFO     root:team_dinner.py:38 🔍 회식하기 페이지 이동중...
+INFO     root:test_TC_E_002.py:30 ✅ '📅회식하기' 페이지 정상 이동 완료.
+INFO     root:test_TC_E_002.py:36 🙌먹는 인원 : 개발 2팀
+INFO     root:test_TC_E_002.py:37 ✅ 소속 팀 정상 출력
+INFO     root:team_dinner.py:50 🔍 카테고리 선택중...
+INFO     root:team_dinner.py:68 ✅ 카테고리 : 패스트푸드 선택
+INFO     root:test_TC_E_002.py:43 ✅ 카테고리 설정 완료
+PASSED
+tests/TC_E/test_TC_E_003.py::TestCaseE::test_TC_E_003 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_E_003.py:19 
+[Test_E_003. Start!]
+INFO     root:team_dinner.py:38 🔍 회식하기 페이지 이동중...
+INFO     root:test_TC_E_003.py:28 ✅ '📅회식하기' 페이지 정상 이동 완료.
+INFO     root:team_dinner.py:50 🔍 카테고리 선택중...
+INFO     root:team_dinner.py:68 ✅ 카테고리 : 양식 선택
+INFO     root:test_TC_E_003.py:35 ✅ 카테고리 설정 완료
+INFO     root:team_dinner.py:78 선택완료 클릭
+INFO     root:test_TC_E_003.py:41 ✅ 선택완료
+INFO     root:test_TC_E_003.py:47 ✅ 정상 출력
+INFO     root:test_TC_E_003.py:48 ✅ 추천 메뉴 : 오믈렛
+INFO     root:test_TC_E_003.py:52 ✅ 메뉴 사진 정상 출력
+INFO     root:test_TC_E_003.py:59 🍽️ 오믈렛에 해당하는 맛집 리스트 : 15개의 맛집 발견
+PASSED
+tests/TC_F/test_TC_F_001.py::TestCaseF::test_TC_F_001 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_F_001.py:22 
+[Test_F_001. Start!]
+INFO     root:test_TC_F_001.py:30 ✅ '팀 피드' 버튼 정상 출력
+INFO     root:test_TC_F_001.py:34 🔍 팀 피드 페이지 이동중...
+INFO     root:test_TC_F_001.py:36 ✅'팀 피드' 페이지 정상 이동 완료.
+INFO     root:test_TC_F_001.py:42 ✅ 팀 카테고리 버튼 정상 출력
+INFO     root:test_TC_F_001.py:48 ✅ 팀 성향 정상 출력
+INFO     root:test_TC_F_001.py:52 팀 : 개발 2팀
+INFO     root:test_TC_F_001.py:57 🍽️ 음식 성향
+INFO     root:test_TC_F_001.py:61 단 맛
+1.5
+INFO     root:test_TC_F_001.py:61 짠 맛
+4.2
+INFO     root:test_TC_F_001.py:61 매운 맛
+4.9
+INFO     root:test_TC_F_001.py:65 죩댄쀤쏺깼퉁돧쫄맽뺼
+INFO     root:test_TC_F_001.py:65 뷤뛆쓜쓽띈뽾댛떗햝캪
+INFO     root:test_TC_F_001.py:82 개발 2팀 이 먹은 메뉴
+INFO     root:test_TC_F_001.py:92 탄두리치킨
+INFO     root:test_TC_F_001.py:92 닭 가슴살 스테이크
+INFO     root:test_TC_F_001.py:92 안심 스테이크
+INFO     root:test_TC_F_001.py:92 초밥
+INFO     root:test_TC_F_001.py:92 갈비찜
+INFO     root:test_TC_F_001.py:92 스테이크
+INFO     root:test_TC_F_001.py:92 텐동
+INFO     root:test_TC_F_001.py:92 냉채
+INFO     root:test_TC_F_001.py:92 아란치니
+INFO     root:test_TC_F_001.py:92 유린기
+INFO     root:test_TC_F_001.py:92 회
+INFO     root:test_TC_F_001.py:92 참치마요컵밥
+INFO     root:test_TC_F_001.py:92 햄버거
+INFO     root:test_TC_F_001.py:92 쌈밥
+INFO     root:test_TC_F_001.py:92 피자
+INFO     root:test_TC_F_001.py:92 사천탕면
+INFO     root:test_TC_F_001.py:92 카츠라멘
+INFO     root:test_TC_F_001.py:97 ✅ 총 17개의 메뉴 발견
+PASSED
+tests/TC_F/test_TC_F_002.py::TestCaseF::test_TC_F_002 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_F_002.py:19 
+[Test_F_002. Start!]
+INFO     root:test_TC_F_002.py:30 ✅ 타이틀 출력 : 오늘 뭐먹지 ?
+INFO     root:test_TC_F_002.py:45 '혼자 먹기' '같이 먹기' '회식 하기'
+INFO     root:test_TC_F_002.py:46 ✅ 상단 버튼 출력
+INFO     root:test_TC_F_002.py:52 ✅ 그래프 출력
+INFO     root:test_TC_F_002.py:57 ✅ 추천 메뉴 이미지 출력
+INFO     root:test_TC_F_002.py:63 ✅ 오늘 점심은 만둣국 어떠세요?
+INFO     root:test_TC_F_002.py:72 ✅ 💻 AI가 분석한 취향 적합률 : 47.5 %
+INFO     root:test_TC_F_002.py:84 '홈' '팀 피드' '히스토리' '개인 피드'
+INFO     root:test_TC_F_002.py:85 ✅ 하단 버튼 출력
+PASSED
+tests/TC_G/test_TC_G_001.py::TestCaseG::test_case_G_001 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_G_001.py:20 Precondition
+INFO     root:test_TC_G_001.py:34 카테고리 선택 완료
+INFO     root:test_TC_G_001.py:42 추천 페이지
+INFO     root:test_TC_G_001.py:45 test_case_G_001
+INFO     root:test_TC_G_001.py:49 변경전 메뉴 : 바베큐 폭립
+INFO     root:test_TC_G_001.py:56 변경후 메뉴 : 로스트 덕
+INFO     root:test_TC_G_001.py:60 test_case_G_001 테스트 완료
+PASSED
+tests/TC_G/test_TC_G_002.py::TestCaseG::test_case_G_002 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_G_002.py:20 Precondition
+INFO     root:test_TC_G_002.py:34 카테고리 선택 완료
+INFO     root:test_TC_G_002.py:42 추천 페이지
+INFO     root:test_TC_G_002.py:45 test_case_G_002
+INFO     root:test_TC_G_002.py:58 검색 결과가 없거나 swipe 버튼이 없습니다. 다시 추천 받기
+INFO     root:test_TC_G_002.py:58 검색 결과가 없거나 swipe 버튼이 없습니다. 다시 추천 받기
+INFO     root:test_TC_G_002.py:58 검색 결과가 없거나 swipe 버튼이 없습니다. 다시 추천 받기
+INFO     root:test_TC_G_002.py:64 test_case_G_002 테스트 완료
+PASSED
+tests/TC_G/test_TC_G_003.py::TestCaseG::test_case_G_003 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_G_003.py:21 Precondition
+INFO     root:test_TC_G_003.py:35 카테고리 선택 완료
+INFO     root:test_TC_G_003.py:43 추천 페이지
+INFO     root:test_TC_G_003.py:58 검색 결과가 없거나 swipe 버튼이 없습니다. 다시 추천 받기
+INFO     root:test_TC_G_003.py:58 검색 결과가 없거나 swipe 버튼이 없습니다. 다시 추천 받기
+INFO     root:test_TC_G_003.py:63 test_case_G_003
+INFO     root:test_TC_G_003.py:67 swipe 전 가게 : 소라야
+INFO     root:recommendation_page.py:29 1번쨰 swipe
+INFO     root:recommendation_page.py:29 2번쨰 swipe
+INFO     root:recommendation_page.py:29 3번쨰 swipe
+INFO     root:test_TC_G_003.py:69 swipe 완료
+INFO     root:test_TC_G_003.py:71 swipe 후 가게 : 울트라멘
+INFO     root:test_TC_G_003.py:77 test_case_G_003 테스트 완료
+PASSED
+tests/TC_G/test_TC_G_005.py::TestCaseG::test_case_G_005 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_G_005.py:21 Precondition
+INFO     root:test_TC_G_005.py:35 카테고리 선택 완료
+INFO     root:test_TC_G_005.py:43 추천 페이지
+INFO     root:test_TC_G_005.py:47 test_case_G_005
+INFO     root:test_TC_G_005.py:63 적합도 48% (기준 충족)
+PASSED
+tests/TC_G/test_TC_G_006.py::TestCaseG::test_case_G_006 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_G_006.py:20 Precondition
+INFO     root:test_TC_G_006.py:34 카테고리 선택 완료
+INFO     root:test_TC_G_006.py:42 추천 페이지
+INFO     root:test_TC_G_006.py:46 test_case_G_006
+INFO     root:test_TC_G_006.py:49 최종 추천 메뉴 : 유린기
+INFO     root:test_TC_G_006.py:55 히스토리 페이지 이동
+INFO     root:test_TC_G_006.py:59 히스토리 최근 메뉴 : 유린기
+INFO     root:test_TC_G_006.py:67 test_case_G_006 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_001.py::TestCaseH::test_case_H_001 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_001.py:18 🔹 Precondition 시작
+INFO     root:test_TC_H_001.py:27 ✅ 내 팀: 개발 2팀
+INFO     root:test_TC_H_001.py:29 🔹 test_case_H_001 시작
+INFO     root:test_TC_H_001.py:38 ✅ 팀 피드에 표시된 팀명: 개발 2팀
+INFO     root:test_TC_H_001.py:48 ✅ test_case_H_001 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_002.py::TestCaseH::test_case_H_002 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_002.py:20 🔹 Precondition 시작
+INFO     root:test_TC_H_002.py:29 내 팀: 개발 2팀
+INFO     root:test_TC_H_002.py:31 🔹 test_case_H_002 시작
+INFO     root:test_TC_H_002.py:64 ✅ test_case_H_002 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_003.py::TestCaseH::test_case_H_003 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_003.py:22 Preconditon
+INFO     root:test_TC_H_003.py:30 내 팀 : 개발 2팀
+INFO     root:test_TC_H_003.py:32 test_case_H_003
+INFO     root:test_TC_H_003.py:41 선택된 옵션: 개발 1팀
+INFO     root:test_TC_H_003.py:48 다른팀 test 완료
+INFO     root:test_TC_H_003.py:61 선택된 옵션: 개발 2팀
+INFO     root:test_TC_H_003.py:70 test_case_H_003 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_004.py::TestCaseH::test_case_H_004 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_004.py:21 Preconditon
+INFO     root:test_TC_H_004.py:29 내 팀 : 개발 2팀
+INFO     root:test_TC_H_004.py:31 test_case_H_004
+INFO     root:test_TC_H_004.py:52 새로운 후기 페이지로 이동
+INFO     root:test_TC_H_004.py:54 test_case_H_004 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_005.py::TestCaseH::test_case_H_005 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_005.py:22 Preconditon
+INFO     root:test_TC_H_005.py:30 내 팀 : 개발 2팀
+INFO     root:test_TC_H_005.py:53 새로운 후기 페이지로 이동
+INFO     root:test_TC_H_005.py:57 test_case_H_005
+INFO     root:test_TC_H_005.py:61 선택된 옵션: 그룹
+INFO     root:test_TC_H_005.py:63 유형 선택 완료!
+INFO     root:test_TC_H_005.py:72 test_case_H_005 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_006.py::TestCaseH::test_case_H_006 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_006.py:21 Preconditon
+INFO     root:test_TC_H_006.py:29 내 팀 : 개발 2팀
+INFO     root:test_TC_H_006.py:52 새로운 후기 페이지로 이동
+INFO     root:test_TC_H_006.py:56 test_case_H_006
+INFO     root:test_TC_H_006.py:61 이미지 추가 완료!
+INFO     root:test_TC_H_006.py:68 test_case_H_006 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_007.py::TestCaseH::test_case_H_007 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_007.py:22 Preconditon
+INFO     root:test_TC_H_007.py:30 내 팀 : 개발 2팀
+INFO     root:test_TC_H_007.py:53 새로운 후기 페이지로 이동
+INFO     root:test_TC_H_007.py:57 test_case_H_007
+INFO     root:test_TC_H_007.py:66 후기 입력 완료
+INFO     root:test_TC_H_007.py:70 test_case_H_007 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_008.py::TestCaseH::test_case_H_008 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_008.py:22 Preconditon
+INFO     root:test_TC_H_008.py:30 내 팀 : 개발 2팀
+INFO     root:test_TC_H_008.py:53 새로운 후기 페이지로 이동
+INFO     root:test_TC_H_008.py:57 test_case_H_008
+INFO     root:test_TC_H_008.py:65 카테고리 설정 완료: 한식
+INFO     root:test_TC_H_008.py:68 test_case_H_008 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_009.py::TestCaseH::test_case_H_009 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_009.py:22 Preconditon
+INFO     root:test_TC_H_009.py:30 내 팀 : 개발 2팀
+INFO     root:test_TC_H_009.py:53 새로운 후기 페이지로 이동
+INFO     root:test_TC_H_009.py:57 test_case_H_009
+INFO     root:test_TC_H_009.py:63 별점 입력 완료: 2개
+INFO     root:test_TC_H_009.py:66 test_case_H_009 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_010.py::TestCaseH::test_case_H_010 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_010.py:22 Preconditon
+INFO     root:test_TC_H_010.py:30 내 팀 : 개발 2팀
+INFO     root:test_TC_H_010.py:53 새로운 후기 페이지로 이동
+INFO     root:test_TC_H_010.py:59 선택된 옵션: 회식
+INFO     root:test_TC_H_010.py:61 유형 선택 완료!
+INFO     root:test_TC_H_010.py:72 이미지 추가 완료!
+INFO     root:test_TC_H_010.py:83 후기 입력 완료
+INFO     root:test_TC_H_010.py:93 카테고리 설정 완료: 중식
+INFO     root:test_TC_H_010.py:101 별점 입력 완료: 2개
+INFO     root:test_TC_H_010.py:105 test_case_H_010
+INFO     root:test_TC_H_010.py:108 후기 작성 완료
+INFO     root:test_TC_H_010.py:113 개인 피드 이동
+INFO     root:test_TC_H_010.py:122 음식일치!
+INFO     root:test_TC_H_010.py:124 카테고리 일치!
+INFO     root:test_TC_H_010.py:126 별 일치!
+INFO     root:test_TC_H_010.py:129 test_case_H_010 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_011.py::TestCaseH::test_case_H_011 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_011.py:22 Preconditon
+INFO     root:test_TC_H_011.py:30 내 팀 : 개발 2팀
+INFO     root:test_TC_H_011.py:32 test_case_H_011
+INFO     root:test_TC_H_011.py:38 참치마요컵밥
+INFO     root:test_TC_H_011.py:59 그룹
+INFO     root:test_TC_H_011.py:62 또 먹은 후기 등록하기 페이지로 이동
+INFO     root:test_TC_H_011.py:67 그룹
+INFO     root:test_TC_H_011.py:68 참치마요컵밥
+INFO     root:test_TC_H_011.py:75 test_case_H_011 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_012.py::TestCaseH::test_case_H_012 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_012.py:21 Preconditon
+INFO     root:test_TC_H_012.py:29 내 팀 : 개발 2팀
+INFO     root:test_TC_H_012.py:34 탄두리치킨
+INFO     root:test_TC_H_012.py:54 그룹
+INFO     root:test_TC_H_012.py:57 또 먹은 후기 등록하기 페이지로 이동
+INFO     root:test_TC_H_012.py:62 그룹
+INFO     root:test_TC_H_012.py:63 탄두리치킨
+INFO     root:test_TC_H_012.py:69 test_case_H_012
+INFO     root:test_TC_H_012.py:76 후기 입력 완료
+INFO     root:test_TC_H_012.py:84 별점 입력 완료: 1개
+INFO     root:test_TC_H_012.py:86 test_case_H_012 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_013.py::TestCaseH::test_case_H_013 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_013.py:22 Preconditon
+INFO     root:test_TC_H_013.py:30 내 팀 : 개발 2팀
+INFO     root:test_TC_H_013.py:35 햄버거
+INFO     root:test_TC_H_013.py:55 그룹
+INFO     root:test_TC_H_013.py:58 또 먹은 후기 등록하기 페이지로 이동
+INFO     root:test_TC_H_013.py:63 그룹
+INFO     root:test_TC_H_013.py:64 햄버거
+INFO     root:test_TC_H_013.py:76 후기 입력 완료
+INFO     root:test_TC_H_013.py:83 별점 입력 완료: 5개
+INFO     root:test_TC_H_013.py:85 test_case_H_013
+INFO     root:test_TC_H_013.py:89 후기 작성 완료
+INFO     root:test_TC_H_013.py:94 개인 피드 이동
+INFO     root:test_TC_H_013.py:113 test_case_H_013 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_014.py::TestCaseH::test_case_H_014 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_014.py:21 Preconditon
+INFO     root:test_TC_H_014.py:29 내 팀 : 개발 2팀
+INFO     root:test_TC_H_014.py:32 test_case_H_014
+INFO     root:test_TC_H_014.py:47 test_case_H_014 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_015.py::TestCaseH::test_case_H_015 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_015.py:22 Preconditon
+INFO     root:test_TC_H_015.py:30 내 팀 : 개발 2팀
+INFO     root:test_TC_H_015.py:45 test_case_H_015
+현재 슬라이더 값: 1.57
+슬라이더 초기화 중...
+초기화 후 슬라이더 값: 0.0
+이동 거리: 353px
+✅ 업데이트된 슬라이더 값: 3.9
+현재 슬라이더 값: 4.04
+슬라이더 초기화 중...
+초기화 후 슬라이더 값: 0.0
+이동 거리: 269px
+✅ 업데이트된 슬라이더 값: 2.99
+현재 슬라이더 값: 4.68
+슬라이더 초기화 중...
+초기화 후 슬라이더 값: 0.0
+이동 거리: 409px
+✅ 업데이트된 슬라이더 값: 4.5
+INFO     root:test_TC_H_015.py:66 test_case_H_015 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_016.py::TestCaseH::test_case_H_016 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_016.py:20 🔹 Precondition 시작
+INFO     root:test_TC_H_016.py:28 ✅ 내 팀: 개발 2팀
+INFO     root:test_TC_H_016.py:39 ✅ 프로필 수정 버튼 클릭 성공
+INFO     root:test_TC_H_016.py:48 ✅ 프로필 정보 수정 페이지 진입 성공
+INFO     root:test_TC_H_016.py:55 ✅ 장점 입력 완료: 쭜딌앻먜빌흸끘졉벓릎
+INFO     root:test_TC_H_016.py:62 ✅ 단점 입력 완료: 졻샭슄졛촌쨜릱몎렐띕
+INFO     root:test_TC_H_016.py:64 ✅ test_case_H_016 테스트 완료
+PASSED
+tests/TC_H/test_TC_H_017.py::TestCaseH::test_case_H_017 
+-------------------------------- live log call ---------------------------------
+INFO     root:test_TC_H_017.py:22 Preconditon
+INFO     root:test_TC_H_017.py:30 내 팀 : 개발 2팀
+INFO     root:test_TC_H_017.py:42 test_case_H_017
+현재 슬라이더 값: 1.57
+슬라이더 초기화 중...
+초기화 후 슬라이더 값: 0.0
+이동 거리: 65px
+✅ 업데이트된 슬라이더 값: 0.8
+현재 슬라이더 값: 4.04
+슬라이더 초기화 중...
+초기화 후 슬라이더 값: 0.0
+이동 거리: 269px
+✅ 업데이트된 슬라이더 값: 2.99
+현재 슬라이더 값: 4.68
+슬라이더 초기화 중...
+초기화 후 슬라이더 값: 0.0
+이동 거리: 446px
+✅ 업데이트된 슬라이더 값: 4.9
+현재 슬라이더 값: 0.8
+슬라이더 초기화 중...
+초기화 후 슬라이더 값: 0.0
+이동 거리: 130px
+✅ 업데이트된 슬라이더 값: 1.5
+INFO     root:test_TC_H_017.py:120 test_case_H_017 테스트 완료
+PASSED
+tests/TC_I/test_TC_I_001.py::TestCaseI::test_case_I_001 PASSED
+tests/TC_I/test_TC_I_002.py::TestCaseI::test_case_I_002 PASSED
+tests/TC_I/test_TC_I_003.py::TestCaseI::test_case_I_003 PASSED
+tests/TC_I/test_TC_I_004.py::TestCaseI::test_case_I_004 PASSED
+tests/TC_I/test_TC_I_005.py::TestCaseI::test_case_I_005 PASSED
+tests/TC_I/test_TC_I_006.py::TestCaseI::test_case_I_006 PASSED
+tests/TC_I/test_TC_I_007.py::TestCaseI::test_case_I_007 PASSED
+tests/TC_I/test_TC_I_008.py::TestCaseI::test_case_I_008 PASSED
+tests/TC_I/test_TC_I_009.py::TestCaseI::test_case_I_009 초기 후기 개수: 10
+✅ 새로운 후기가 추가되었습니다. 후기가 성공적으로 등록되었습니다!
+✅ 현재 후기 개수 : 20
+PASSED
+tests/TC_J/test_TC_J_001.py::TestCaseJ::test_case_J_001 PASSED
+tests/TC_J/test_TC_J_002.py::TestCaseJ::test_case_J_002 🔧 프로필 사진 변경 중...
+✅ 프로필 사진 변경 완료!
+✅ 수정 완료 버튼 클릭!
+PASSED
+tests/TC_J/test_TC_J_003.py::TestCaseJ::test_case_J_003 🔧 단맛 슬라이더 값을 3.0로 설정 중...
+✅ 업데이트된 단맛 슬라이더 값: 3.1
+✅ 허용 오차값 0.15
+✅ 단맛 슬라이더 값이 목표값 3.0에 근접합니다.
+PASSED
+tests/TC_J/test_TC_J_004.py::TestCaseJ::test_case_J_004 🔧 짠맛 슬라이더 값을 2.0로 설정 중...
+✅ 업데이트된 짠맛 슬라이더 값: 2.1
+✅ 허용 오차값 0.15
+✅ 짠맛 슬라이더 값이 목표값 2.0에 근접합니다.
+PASSED
+tests/TC_J/test_TC_J_005.py::TestCaseJ::test_case_J_005 🔧 매운맛 슬라이더 값을 4.0로 설정 중...
+✅ 업데이트된 매운맛 슬라이더 값: 4.1
+✅ 허용 오차값 0.15
+✅ 매운맛 슬라이더 값이 목표값 4.0에 근접합니다.
+PASSED
+tests/TC_J/test_TC_J_006.py::TestCaseJ::test_case_J_006 🔧 좋아하는 음식 입력 중...
+✅ 좋아하는 음식 입력 완료: 좋아하는 음식 테스트 입니다.
+✅ 수정 완료 버튼 클릭!
+✅ 좋아하는 음식 검증 완료!
+PASSED
+tests/TC_J/test_TC_J_007.py::TestCaseJ::test_case_J_007 🔧 싫어하는 음식 입력 중...
+✅ 싫어하는 음식 입력 완료: 싫어하는 음식 테스트 입니다.
+✅ 수정 완료 버튼 클릭!
+✅ 싫어하는 음식 검증 완료!
+PASSED
+
+- Generated html report: file:///var/jenkins_home/workspace/team2/test-reports/pytest-html-report.html -
+======================== 59 passed in 944.81s (0:15:44) ========================
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] sh
++ echo ✅ Build finished.
+✅ Build finished.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
