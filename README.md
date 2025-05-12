@@ -22,6 +22,7 @@
 ### 🔹 3. RealWorld 앱 UI 테스트 자동화 *(진행 중)*
 - **기능:** 인증/소셜 기능 자동화, 접근성(Lighthouse), 성능(JMeter) 테스트
 - **기술:** Selenium, Pytest, Lighthouse, JMeter
+- **링크:** https://www.notion.so/QA-1ecd5913be1480e8abc7e94a02017398
 
 ### 🔹 4. 테스트 케이스 문서화 (에코플럭스)
 - **형식:** Google Spreadsheet 기반 수동 TC 설계, OBS 영상 녹화
