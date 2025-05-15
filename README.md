@@ -24,7 +24,7 @@
 - **기술:** Selenium, Pytest, Lighthouse, JMeter
 - **링크:** https://www.notion.so/QA-1ecd5913be1480e8abc7e94a02017398
 
-### 🔹 4. 테스트 케이스 문서화 (에코플럭스)
+### 🔹 4. 테스트 케이스 문서화 (에코칼립스 진홍의 서약)
 - **형식:** Google Spreadsheet 기반 수동 TC 설계, OBS 영상 녹화
 
 ### 🔹 5. 버그 리포트 작성 (리그 오브 레전드)
