@@ -1,6 +1,12 @@
 @echo off
 REM 명령어 실행 내용을 화면에 표시하지 않습니다. 배치 파일 실행 시 불필요한 명령어 출력을 숨깁니다.
 
+REM ================================================================================
+REM 이 배치 스크립트는 JMeter 테스트를 설정, 실행하고 결과를 관리하는 자동화 도구입니다.
+REM 사용자는 JMeter 설치 경로를 설정하고, 다양한 테스트 모드(부하, 스트레스, 스파이크)를 선택하여 실행할 수 있습니다.
+REM 테스트 실행 후에는 결과 요약 및 HTML 보고서 자동 열기 옵션도 제공합니다.
+REM ================================================================================
+
 REM 콘솔 출력 설정
 chcp 65001 > nul
 REM 콘솔 코드 페이지를 UTF-8(65001)로 설정합니다. 한글 등 다국어 문자가 깨지지 않도록 합니다.
@@ -26,19 +32,20 @@ set JMETER_HOME=
 REM JMeter 설치 경로 설정 (사용자 입력 또는 기존값 사용)
 if exist "%SCRIPT_DIR%jmeter_path.txt" (
     REM jmeter_path.txt 파일이 존재하면 파일에서 JMeter 경로를 읽어옵니다.
-    REM JMETER_HOME 끝 공백 제거 (탭/스페이스 등)
-    for /f "usebackq delims=" %%a in ("%SCRIPT_DIR%jmeter_path.txt") do set "JMETER_HOME=%%a"
-    for /f "tokens=* delims= " %%b in ("!JMETER_HOME!") do set JMETER_HOME=%%b
+    for /f "usebackq delims=" %%a in ("%SCRIPT_DIR%jmeter_path.txt") do set "JMETER_HOME=%%a" REM 파일의 첫 번째 줄을 JMETER_HOME 변수에 저장합니다.
+    REM 저장된 JMETER_HOME 값에서 앞쪽 공백을 제거합니다. (파일에서 읽거나 사용자 입력 시 원치 않는 공백이 포함될 수 있음)
+    for /f "tokens=* delims= " %%b in ("!JMETER_HOME!") do set "JMETER_HOME=%%b" REM 앞쪽 공백이 제거된 값을 다시 JMETER_HOME에 할당합니다.
 )
 
 REM JMETER_HOME이 비었으면 (파일이 없거나, 빈 줄일 때) 직접 입력/기본값 사용
 if "%JMETER_HOME%"=="" (
     echo JMeter 경로를 입력하세요 (예: C:\apache-jmeter-5.6.3)
-    set /p JMETER_HOME="JMeter 경로(엔터시 기본값):C:\apache-jmeter-5.6.3"
+    set /p JMETER_HOME="JMeter 경로(엔터시 기본값):C:\Users\user\Downloads\apache-jmeter-5.6.3"
     REM 사용자가 아무것도 입력하지 않고 엔터를 누르면 기본값으로 설정합니다.
-    if "%JMETER_HOME%"=="" set JMETER_HOME=C:\apache-jmeter-5.6.3
-    REM 입력받거나 설정된 JMeter 경로를 jmeter_path.txt 파일에 저장합니다.
-    echo %JMETER_HOME% > "%SCRIPT_DIR%jmeter_path.txt"
+    if "%JMETER_HOME%"=="" set JMETER_HOME=C:\Users\user\Downloads\apache-jmeter-5.6.3
+    REM 입력받거나 설정된 JMeter 경로를 줄바꿈 없이 jmeter_path.txt 파일에 저장합니다.
+    <nul set /p="%JMETER_HOME%" > "%SCRIPT_DIR%jmeter_path.txt"
+    echo.
     echo JMeter 경로가 저장되었습니다. 다음 실행 시에는 이 단계를 건너뜁니다.
     echo 저장된 경로: %JMETER_HOME% (파일: %SCRIPT_DIR%jmeter_path.txt)
     echo.
