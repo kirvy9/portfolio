@@ -12,7 +12,7 @@
 ### 🔹 1. 웹사이트 자동화 테스트 (Selenium)
 - **기간:** 2025.03.21 ~ 04.03
 - **기능:** 로그인, 회원가입 시나리오 자동화
-- **기술:** Python, Selenium, Pytest, Jenkins
+- **기술:** Python, Selenium, Pytest
 
 ### 🔹 2. 모바일 게임 자동화 (Appium + OpenCV)
 - **기간:** 2025.04.14 ~ 04.21
