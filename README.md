@@ -19,7 +19,7 @@
 - **기능:** 명일방주 앱 실행, 전투 루트 자동화
 - **기술:** Appium, OpenCV, Python
 
-### 🔹 3. RealWorld 앱 UI 테스트 자동화 *(진행 중)*
+### 🔹 3. RealWorld 앱 UI 테스트 자동화
 - **기능:** 인증/소셜 기능 자동화, 접근성(Lighthouse), 성능(JMeter) 테스트
 - **기술:** Selenium, Pytest, Lighthouse, JMeter
 - **링크:** https://www.notion.so/QA-1ecd5913be1480e8abc7e94a02017398
