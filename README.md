@@ -23,7 +23,7 @@
 - **기능:** 인증/소셜 기능 자동화, 접근성(Lighthouse), 성능(JMeter) 테스트
 - **기술:** Selenium, Pytest, Lighthouse, JMeter
 - **링크:** https://www.notion.so/QA-1ecd5913be1480e8abc7e94a02017398
-
+- **링크2:** https://app.notion.com/p/QA-214aa3cd46ec805e9d58f24e0f506a9a
 ---
 
 
